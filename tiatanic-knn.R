@@ -1,6 +1,6 @@
 library(class)
-train<-read.csv('D:/titanic/train.csv',header=T)
-test<-read.csv('D:/titanic/test.csv',header=T)
+train<-read.csv('titanic/train.csv',header=T)
+test<-read.csv('titanic/test.csv',header=T)
 train1<-subset(train,select=-c(PassengerId,Name))
 train1[is.na(train1)]=median(train1$Age,na.rm=T)
 for (i in 1:10) {train1[,i]=as.numeric(train1[,i])}

@@ -1,0 +1,11 @@
+library(rpart)
+library(rpart.plot)
+train<-read.csv('titanic/train.csv',header=T)
+train1<-subset(train,select=-c(PassengerId,Name))
+train1[is.na(train1)]=median(train1$Age,na.rm=T)
+for (i in 1:10) {train1[,i]=as.numeric(train1[,i])}
+train1$Sex<-as.factor(train1$Sex)
+train1$Pclass<-as.factor(train1$Pclass)
+Ctl<-rpart.control(minsplit=2,maxcompete=4,xval=10,maxdepth=10,cp=0)
+set.seed(4)
+Treefit<-rpart(Survived~.,data=train1,method='class',parms=list(split='gini'),control=Ctl)
